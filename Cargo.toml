@@ -3,5 +3,19 @@ name = "katsuyou"
 version = "0.1.0"
 authors = ["Karuna Murti <karuna.murti@gmail.com>"]
 edition = "2018"
+description = """
+`katsuyou` is a command line to show all conjugation form of a Japanese verb or adjective.
+"""
+repository = "https://gitlab.com/karuna/katsuyou"
+readme = "README.md"
+license = "MIT"
+
+[[bin]]
+path = "src/main.rs"
+name = "katsuyou"
+
+[[test]]
+name = "integration"
+path = "tests/tests.rs"
 
 [dependencies]

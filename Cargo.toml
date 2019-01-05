@@ -20,3 +20,4 @@ path = "tests/tests.rs"
 
 [dependencies]
 clap = "2.32.0"
+human-panic = "1.0.1"

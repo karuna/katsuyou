@@ -19,3 +19,4 @@ name = "integration"
 path = "tests/tests.rs"
 
 [dependencies]
+clap = "2.32.0"

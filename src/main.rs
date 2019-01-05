@@ -1,3 +1,5 @@
+use katsuyou;
+
 fn main() {
-    println!("Hello, world!");
+    katsuyou::run();
 }

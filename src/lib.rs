@@ -16,6 +16,7 @@ pub fn run() {
         Result::None => {
             let sample = WordEntity {
                 dictionary_form: "食べる",
+                translation: "to eat",
                 word_type: WordType::VerbIchidan,
             };
             printer::print_word(&sample)
@@ -24,5 +25,3 @@ pub fn run() {
         Result::Many(_results) => {}
     }
 }
-
-// fn show_choices(results: )

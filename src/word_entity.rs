@@ -30,20 +30,26 @@ pub enum WordType {
 #[derive(Debug)]
 pub struct WordEntity<'a> {
     pub dictionary_form: &'a str,
+    pub translation: &'a str,
     pub word_type: WordType,
 }
 
 impl<'a> WordEntity<'a> {
     // dictionary form, short form, informal form
     pub fn imperfective_form(&self) -> &'a str {
-        // TODO: implement this
         self.dictionary_form
     }
 
     // negative form, short negative form, informal negative form
     pub fn imperfective_negative_form(&self) -> &'a str {
-        // TODO: implement this
-        self.dictionary_form
+        match self.word_type {
+            WordType::VerbSuru => {
+                let stem = String::from(self.dictionary_form.trim_end_matches("する"));
+                let joined = [stem, String::from("しない")].join("");
+                Box::leak(joined.into_boxed_str())
+            }
+            _ => "TODO",
+        }
     }
 
     // past form, ta form, past informal form
@@ -161,4 +167,43 @@ impl<'a> WordEntity<'a> {
     }
 
     // others
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    struct TestWordEntity<'a> {
+        word_entity: &'a WordEntity<'a>,
+        imperfective_negative_form: &'a str,
+    }
+
+    const TEST_WORDS: [TestWordEntity; 2] = [
+        TestWordEntity {
+            word_entity: &WordEntity {
+                dictionary_form: "する",
+                translation: "to do",
+                word_type: WordType::VerbSuru,
+            },
+            imperfective_negative_form: "しない",
+        },
+        TestWordEntity {
+            word_entity: &WordEntity {
+                dictionary_form: "準備する",
+                translation: "to prepare",
+                word_type: WordType::VerbSuru,
+            },
+            imperfective_negative_form: "準備しない",
+        },
+    ];
+
+    #[test]
+    fn imperfective_negative_form_test() {
+        for test_word in &TEST_WORDS {
+            assert_eq!(
+                test_word.word_entity.imperfective_negative_form(),
+                test_word.imperfective_negative_form
+            )
+        }
+    }
 }

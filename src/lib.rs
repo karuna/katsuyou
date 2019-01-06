@@ -1,5 +1,7 @@
 extern crate clap;
 
+mod cli;
+
 pub fn run() {
-    println!("Hello, world!");
+    cli::app_arguments();
 }

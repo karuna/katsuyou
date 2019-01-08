@@ -6,6 +6,7 @@ extern crate console;
 extern crate lazy_static;
 
 mod cli;
+mod constant;
 mod printer;
 mod searcher;
 mod word_entity;

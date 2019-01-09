@@ -19,9 +19,10 @@ pub const KANAI: &str = "かない";
 pub const GANAI: &str = "がない";
 pub const BANAI: &str = "ばない";
 pub const SARANAI: &str = "さらない";
-
 // Ending
-pub const GODAN_ARU_END: &str = "さる";
+pub const GODAN_ARU_SHA_END: &str = "しゃる";
+pub const GODAN_ARU_SA_END: &str = "さる";
+pub const GODAN_ARU_RU_END: &str = "る";
 pub const GODAN_B_END: &str = "ぶ";
 pub const GODAN_G_END: &str = "ぐ";
 pub const GODAN_K_END: &str = "く";
@@ -34,5 +35,20 @@ pub const GODAN_U_END: &str = "う";
 pub const ICHIDAN_END: &str = "る";
 pub const ADJ_I_END: &str = "い";
 pub const ADJ_NA_END: &str = "な";
+// Past
+pub const SHITA: &str = "した";
+pub const KITA: &str = "きた";
+pub const SHATTA: &str = "しゃった";
+pub const SATTA: &str = "さった";
+pub const TTA: &str = "った";
+pub const NDA: &str = "んだ";
+pub const IDA: &str = "いだ";
+pub const ITA: &str = "いた";
+pub const UTA: &str = "うた";
+pub const TA: &str = "た";
+pub const KATTA: &str = "かった";
+pub const DATTA: &str = "だった";
+pub const ATTA: &str = "あった";
+pub const ATTA_KANJI: &str = "有った";
 // MISC
 pub const NOT_APPLICABLE: &str = "-";

@@ -1,9 +1,11 @@
+#![feature(test)]
 extern crate clap;
 extern crate console;
 
 #[cfg(test)]
 #[macro_use]
 extern crate lazy_static;
+extern crate test;
 
 mod cli;
 mod constant;

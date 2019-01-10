@@ -413,6 +413,8 @@ impl WordEntity {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use test::Bencher;
+
     struct TestWordEntity {
         word_entity: WordEntity,
         imperfective_form: String,
@@ -668,43 +670,51 @@ mod tests {
         ];
     }
 
-    #[test]
-    fn imperfective_form_test() {
-        for test_word in TEST_WORDS.iter() {
-            assert_eq!(
-                test_word.word_entity.imperfective_form(),
-                test_word.imperfective_form,
-            )
-        }
+    #[bench]
+    fn imperfective_form_test(b: &mut Bencher) {
+        b.iter(||
+            for test_word in TEST_WORDS.iter() {
+                assert_eq!(
+                    test_word.word_entity.imperfective_form(),
+                    test_word.imperfective_form,
+                )
+            }
+        )
     }
 
-    #[test]
-    fn imperfective_negative_form_test() {
-        for test_word in TEST_WORDS.iter() {
-            assert_eq!(
-                test_word.word_entity.imperfective_negative_form(),
-                test_word.imperfective_negative_form,
-            )
-        }
+    #[bench]
+    fn imperfective_negative_form_test(b: &mut Bencher) {
+        b.iter(||
+            for test_word in TEST_WORDS.iter() {
+                assert_eq!(
+                    test_word.word_entity.imperfective_negative_form(),
+                    test_word.imperfective_negative_form,
+                )
+            }
+        )
     }
 
-    #[test]
-    fn perfective_form_test() {
-        for test_word in TEST_WORDS.iter() {
-            assert_eq!(
-                test_word.word_entity.perfective_form(),
-                test_word.perfective_form,
-            )
-        }
+    #[bench]
+    fn perfective_form_test(b: &mut Bencher) {
+        b.iter(||
+            for test_word in TEST_WORDS.iter() {
+                assert_eq!(
+                    test_word.word_entity.perfective_form(),
+                    test_word.perfective_form,
+                )
+            }
+        )
     }
 
-        #[test]
-    fn perfective_negative_form_test() {
-        for test_word in TEST_WORDS.iter() {
-            assert_eq!(
-                test_word.word_entity.perfective_negative_form(),
-                test_word.perfective_negative_form,
-            )
-        }
+    #[bench]
+    fn perfective_negative_form_test(b: &mut Bencher) {
+        b.iter(||
+            for test_word in TEST_WORDS.iter() {
+                assert_eq!(
+                    test_word.word_entity.perfective_negative_form(),
+                    test_word.perfective_negative_form,
+                )
+            }
+        )
     }
 }

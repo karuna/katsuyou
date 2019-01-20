@@ -222,7 +222,11 @@ impl WordEntity {
 
     // past negative form, ta negative form, past informal negative form
     pub fn perfective_negative_form(&self) -> String {
-        [self.imperfective_negative_form().trim_end_matches("い"), KATTA].join("")
+        [
+            self.imperfective_negative_form().trim_end_matches("い"),
+            KATTA,
+        ]
+        .join("")
     }
 
     // masu form, long form, polite form
@@ -669,6 +673,7 @@ mod tests {
                 imperfective_form: String::from("いい"),
                 imperfective_negative_form: String::from("よくない"),
                 perfective_form: String::from("よかった"),
+                perfective_negative_form: String::from("よくなかった"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -679,6 +684,7 @@ mod tests {
                 imperfective_form: String::from("よい"),
                 imperfective_negative_form: String::from("よくない"),
                 perfective_form: String::from("よかった"),
+                perfective_negative_form: String::from("よくなかった"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -689,6 +695,7 @@ mod tests {
                 imperfective_form: String::from("良い"),
                 imperfective_negative_form: String::from("良くない"),
                 perfective_form: String::from("良かった"),
+                perfective_negative_form: String::from("良くなかった"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -717,49 +724,49 @@ mod tests {
 
     #[bench]
     fn imperfective_form_test(b: &mut Bencher) {
-        b.iter(||
+        b.iter(|| {
             for test_word in TEST_WORDS.iter() {
                 assert_eq!(
                     test_word.word_entity.imperfective_form(),
                     test_word.imperfective_form,
                 )
             }
-        )
+        })
     }
 
     #[bench]
     fn imperfective_negative_form_test(b: &mut Bencher) {
-        b.iter(||
+        b.iter(|| {
             for test_word in TEST_WORDS.iter() {
                 assert_eq!(
                     test_word.word_entity.imperfective_negative_form(),
                     test_word.imperfective_negative_form,
                 )
             }
-        )
+        })
     }
 
     #[bench]
     fn perfective_form_test(b: &mut Bencher) {
-        b.iter(||
+        b.iter(|| {
             for test_word in TEST_WORDS.iter() {
                 assert_eq!(
                     test_word.word_entity.perfective_form(),
                     test_word.perfective_form,
                 )
             }
-        )
+        })
     }
 
     #[bench]
     fn perfective_negative_form_test(b: &mut Bencher) {
-        b.iter(||
+        b.iter(|| {
             for test_word in TEST_WORDS.iter() {
                 assert_eq!(
                     test_word.word_entity.perfective_negative_form(),
                     test_word.perfective_negative_form,
                 )
             }
-        )
+        })
     }
 }

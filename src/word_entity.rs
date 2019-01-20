@@ -337,77 +337,92 @@ impl WordEntity {
 
     fn get_kuru_stem(&self, word: String) -> String {
         if word.ends_with(KURU_KANA) {
-            return String::from(word.trim_end_matches(KURU_KANA));
+            return self.trim_string(word, KURU_KANA);
         }
-        String::from(word.trim_end_matches(KURU))
+        self.trim_string(word, KURU)
     }
 
     fn get_godan_aru_stem(&self, word: String) -> String {
         if word.ends_with(GODAN_ARU_SHA_END) {
-            return String::from(word.trim_end_matches(GODAN_ARU_SHA_END));
+            return self.trim_string(word, GODAN_ARU_SHA_END);
         }
         if word.ends_with(GODAN_ARU_SA_END) {
-            return String::from(word.trim_end_matches(GODAN_ARU_SA_END));
+            return self.trim_string(word, GODAN_ARU_SA_END);
         }
-        String::from(word.trim_end_matches(GODAN_ARU_RU_END))
+        self.trim_string(word, GODAN_ARU_RU_END)
     }
 
     fn get_godan_b_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(GODAN_B_END))
+        self.trim_string(word, GODAN_B_END)
     }
 
     fn get_godan_g_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(GODAN_G_END))
+        self.trim_string(word, GODAN_G_END)
     }
 
     fn get_godan_k_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(GODAN_K_END))
+        self.trim_string(word, GODAN_K_END)
     }
 
     fn get_godan_m_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(GODAN_M_END))
+        self.trim_string(word, GODAN_M_END)
     }
 
     fn get_godan_n_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(GODAN_N_END))
+        self.trim_string(word, GODAN_N_END)
     }
 
     fn get_godan_r_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(GODAN_R_END))
+        self.trim_string(word, GODAN_R_END)
     }
 
     fn get_godan_ri_stem(&self, word: String) -> String {
         if word.ends_with(ARU_KANA) {
-            return String::from(word.trim_end_matches(ARU_KANA));
+            return self.trim_string(word, ARU_KANA);
         }
-        String::from(word.trim_end_matches(ARU))
+        self.trim_string(word, ARU)
     }
 
     fn get_godan_s_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(GODAN_S_END))
+        self.trim_string(word, GODAN_S_END)
     }
 
     fn get_godan_t_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(GODAN_T_END))
+        self.trim_string(word, GODAN_T_END)
     }
 
     fn get_godan_u_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(GODAN_U_END))
+        self.trim_string(word, GODAN_U_END)
     }
 
     fn get_ichidan_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(ICHIDAN_END))
+        self.trim_string(word, ICHIDAN_END)
     }
 
     fn get_adj_i_stem(&self, word: String) -> String {
-        String::from(word.trim_end_matches(ADJ_I_END))
+        let stem = self.trim_string(word, ADJ_I_END);
+        if stem != "い" {
+            return stem;
+        }
+        return String::from(ADJ_YOI_KANA);
     }
 
     fn get_adj_na_stem(&self, word: String) -> String {
         if word.ends_with(ADJ_NA_END) {
-            return String::from(word.trim_end_matches(ADJ_NA_END));
+            return self.trim_string(word, ADJ_NA_END);
         }
         word
+    }
+
+    fn trim_string(&self, word: String, word_ending: &str) -> String {
+        let word_length: usize = word.chars().count();
+        let ending_length: usize = word_ending.chars().count();
+        word[..word
+            .char_indices()
+            .nth(word_length - ending_length)
+            .unwrap()
+            .0]
+            .to_string()
     }
 }
 
@@ -622,6 +637,36 @@ mod tests {
                 imperfective_form: String::from("痛い"),
                 imperfective_negative_form: String::from("痛くない"),
                 perfective_form: String::from("痛かった"),
+            },
+            TestWordEntity {
+                word_entity: WordEntity {
+                    dictionary_form: String::from("いい"),
+                    translation: String::from("good"),
+                    word_type: WordType::AdjectiveI,
+                },
+                imperfective_form: String::from("いい"),
+                imperfective_negative_form: String::from("よくない"),
+                perfective_form: String::from("よかった"),
+            },
+            TestWordEntity {
+                word_entity: WordEntity {
+                    dictionary_form: String::from("よい"),
+                    translation: String::from("good"),
+                    word_type: WordType::AdjectiveI,
+                },
+                imperfective_form: String::from("よい"),
+                imperfective_negative_form: String::from("よくない"),
+                perfective_form: String::from("よかった"),
+            },
+            TestWordEntity {
+                word_entity: WordEntity {
+                    dictionary_form: String::from("良い"),
+                    translation: String::from("good"),
+                    word_type: WordType::AdjectiveI,
+                },
+                imperfective_form: String::from("良い"),
+                imperfective_negative_form: String::from("良くない"),
+                perfective_form: String::from("良かった"),
             },
             TestWordEntity {
                 word_entity: WordEntity {

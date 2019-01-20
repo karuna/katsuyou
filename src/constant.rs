@@ -51,4 +51,7 @@ pub const DATTA: &str = "だった";
 pub const ATTA: &str = "あった";
 pub const ATTA_KANJI: &str = "有った";
 // MISC
+pub const ADJ_II_KANA: &str = "い";
+pub const ADJ_YOI_KANA: &str = "よ";
+pub const ADJ_YOI_KANJI: &str = "良";
 pub const NOT_APPLICABLE: &str = "-";

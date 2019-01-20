@@ -132,7 +132,6 @@ impl WordEntity {
                 let stem = self.get_adj_na_stem(self.dictionary_form.clone());
                 [stem, String::from(JANAI)].join("")
             }
-            _ => String::from("TODO"),
         }
     }
 

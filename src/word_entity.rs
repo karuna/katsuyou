@@ -52,6 +52,9 @@ impl WordEntity {
             }
             WordType::VerbGodanRI => {
                 let stem = self.get_godan_ri_stem(self.dictionary_form.clone());
+                if self.dictionary_form.starts_with(ARU) {
+                    return [stem, String::from(ARU)].join("");
+                }
                 [stem, String::from(ARU_KANA)].join("")
             }
             WordType::AdjectiveNa => self.get_adj_na_stem(self.dictionary_form.clone()),
@@ -72,6 +75,9 @@ impl WordEntity {
             }
             WordType::VerbGodanARU => {
                 let stem = self.get_godan_aru_stem(self.dictionary_form.clone());
+                if self.dictionary_form.ends_with(GODAN_ARU_SHA_END) {
+                    return [stem, String::from(SHARANAI)].join("");
+                }
                 [stem, String::from(SARANAI)].join("")
             }
             WordType::VerbGodanB => {
@@ -231,8 +237,75 @@ impl WordEntity {
 
     // masu form, long form, polite form
     pub fn formal_imperfective_form(&self) -> String {
-        // TODO: implement this
-        self.dictionary_form.clone()
+        match self.word_type {
+            WordType::VerbSuru => {
+                let stem = self.get_suru_stem(self.dictionary_form.clone());
+                [stem, String::from(SHIMASU)].join("")
+            }
+            WordType::VerbKuru => {
+                let stem = self.get_kuru_stem(self.dictionary_form.clone());
+                [stem, String::from(KIMASU)].join("")
+            }
+            WordType::VerbGodanARU => {
+                let stem = self.get_godan_aru_stem(self.dictionary_form.clone());
+                if self.dictionary_form.ends_with(GODAN_ARU_SHA_END) {
+                    return [stem, String::from(SHAIMASU)].join("");
+                }
+                [stem, String::from(SAIMASU)].join("")
+            }
+            WordType::VerbGodanB => {
+                let stem = self.get_godan_b_stem(self.dictionary_form.clone());
+                [stem, String::from(BIMASU)].join("")
+            }
+            WordType::VerbGodanG => {
+                let stem = self.get_godan_g_stem(self.dictionary_form.clone());
+                [stem, String::from(GIMASU)].join("")
+            }
+            WordType::VerbGodanK | WordType::VerbGodanKS => {
+                let stem = self.get_godan_k_stem(self.dictionary_form.clone());
+                [stem, String::from(KIMASU)].join("")
+            }
+            WordType::VerbGodanM => {
+                let stem = self.get_godan_m_stem(self.dictionary_form.clone());
+                [stem, String::from(MIMASU)].join("")
+            }
+            WordType::VerbGodanN => {
+                let stem = self.get_godan_n_stem(self.dictionary_form.clone());
+                [stem, String::from(NIMASU)].join("")
+            }
+            WordType::VerbGodanR => {
+                let stem = self.get_godan_r_stem(self.dictionary_form.clone());
+                [stem, String::from(RIMASU)].join("")
+            }
+            WordType::VerbGodanRI => {
+                let stem = self.get_godan_ri_stem(self.dictionary_form.clone());
+                if stem.is_empty() {
+                    if self.dictionary_form.starts_with(ARU) {
+                        return [ARU_STEM, RIMASU].join("");
+                    }
+                    return [ARU_STEM_KANA, RIMASU].join("");
+                }
+                [stem, String::from(RIMASU)].join("")
+            }
+            WordType::VerbGodanS => {
+                let stem = self.get_godan_s_stem(self.dictionary_form.clone());
+                [stem, String::from(SHIMASU)].join("")
+            }
+            WordType::VerbGodanT => {
+                let stem = self.get_godan_t_stem(self.dictionary_form.clone());
+                [stem, String::from(CHIMASU)].join("")
+            }
+            WordType::VerbGodanU | WordType::VerbGodanUS => {
+                let stem = self.get_godan_u_stem(self.dictionary_form.clone());
+                [stem, String::from(IMASU)].join("")
+            }
+            WordType::VerbIchidan => {
+                let stem = self.get_ichidan_stem(self.dictionary_form.clone());
+                [stem, String::from(MASU)].join("")
+            }
+            WordType::AdjectiveI => String::from(NOT_APPLICABLE),
+            WordType::AdjectiveNa => String::from(NOT_APPLICABLE),
+        }
     }
 
     // masu negative form, long negative form, polite negative form
@@ -440,6 +513,7 @@ mod tests {
         imperfective_negative_form: String,
         perfective_form: String,
         perfective_negative_form: String,
+        formal_imperfective_form: String,
     }
 
     lazy_static! {
@@ -454,6 +528,7 @@ mod tests {
                 imperfective_negative_form: String::from(SHINAI),
                 perfective_form: String::from(SHITA),
                 perfective_negative_form: String::from("しなかった"),
+                formal_imperfective_form: String::from(SHIMASU),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -465,6 +540,7 @@ mod tests {
                 imperfective_negative_form: String::from("準備しない"),
                 perfective_form: String::from("準備した"),
                 perfective_negative_form: String::from("準備しなかった"),
+                formal_imperfective_form: String::from("準備します"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -476,6 +552,7 @@ mod tests {
                 imperfective_negative_form: String::from(KONAI),
                 perfective_form: String::from(KITA),
                 perfective_negative_form: String::from("こなかった"),
+                formal_imperfective_form: String::from(KIMASU),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -487,6 +564,7 @@ mod tests {
                 imperfective_negative_form: String::from(KONAI),
                 perfective_form: String::from(KITA),
                 perfective_negative_form: String::from("こなかった"),
+                formal_imperfective_form: String::from(KIMASU),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -498,6 +576,19 @@ mod tests {
                 imperfective_negative_form: String::from("下さらない"),
                 perfective_form: String::from("下さった"),
                 perfective_negative_form: String::from("下さらなかった"),
+                formal_imperfective_form: String::from("下さいます"),
+            },
+            TestWordEntity {
+                word_entity: WordEntity {
+                    dictionary_form: String::from("いらっしゃる"),
+                    translation: String::from("to go"),
+                    word_type: WordType::VerbGodanARU,
+                },
+                imperfective_form: String::from("いらっしゃる"),
+                imperfective_negative_form: String::from("いらっしゃらない"),
+                perfective_form: String::from("いらっしゃった"),
+                perfective_negative_form: String::from("いらっしゃらなかった"),
+                formal_imperfective_form: String::from("いらっしゃいます"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -509,6 +600,7 @@ mod tests {
                 imperfective_negative_form: String::from("呼ばない"),
                 perfective_form: String::from("呼んだ"),
                 perfective_negative_form: String::from("呼ばなかった"),
+                formal_imperfective_form: String::from("呼びます"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -520,6 +612,7 @@ mod tests {
                 imperfective_negative_form: String::from("泳がない"),
                 perfective_form: String::from("泳いだ"),
                 perfective_negative_form: String::from("泳がなかった"),
+                formal_imperfective_form: String::from("泳ぎます"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -531,6 +624,7 @@ mod tests {
                 imperfective_negative_form: String::from("焼かない"),
                 perfective_form: String::from("焼いた"),
                 perfective_negative_form: String::from("焼かなかった"),
+                formal_imperfective_form: String::from("焼きます"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -542,6 +636,7 @@ mod tests {
                 imperfective_negative_form: String::from("行かない"),
                 perfective_form: String::from("行った"),
                 perfective_negative_form: String::from("行かなかった"),
+                formal_imperfective_form: String::from("行きます"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -553,6 +648,7 @@ mod tests {
                 imperfective_negative_form: String::from("読まない"),
                 perfective_form: String::from("読んだ"),
                 perfective_negative_form: String::from("読まなかった"),
+                formal_imperfective_form: String::from("読みます"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -564,6 +660,7 @@ mod tests {
                 imperfective_negative_form: String::from("死なない"),
                 perfective_form: String::from("死んだ"),
                 perfective_negative_form: String::from("死ななかった"),
+                formal_imperfective_form: String::from("死にます"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -575,6 +672,7 @@ mod tests {
                 imperfective_negative_form: String::from("走らない"),
                 perfective_form: String::from("走った"),
                 perfective_negative_form: String::from("走らなかった"),
+                formal_imperfective_form: String::from("走ります"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -582,10 +680,11 @@ mod tests {
                     translation: String::from("to exist"),
                     word_type: WordType::VerbGodanRI,
                 },
-                imperfective_form: String::from("ある"),
+                imperfective_form: String::from("有る"),
                 imperfective_negative_form: String::from("ない"),
                 perfective_form: String::from("有った"),
                 perfective_negative_form: String::from("なかった"),
+                formal_imperfective_form: String::from("有ります"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -597,6 +696,7 @@ mod tests {
                 imperfective_negative_form: String::from("ない"),
                 perfective_form: String::from("あった"),
                 perfective_negative_form: String::from("なかった"),
+                formal_imperfective_form: String::from("あります"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -608,6 +708,7 @@ mod tests {
                 imperfective_negative_form: String::from("示さない"),
                 perfective_form: String::from("示した"),
                 perfective_negative_form: String::from("示さなかった"),
+                formal_imperfective_form: String::from("示します"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -619,6 +720,7 @@ mod tests {
                 imperfective_negative_form: String::from("待たない"),
                 perfective_form: String::from("待った"),
                 perfective_negative_form: String::from("待たなかった"),
+                formal_imperfective_form: String::from("待ちます"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -630,6 +732,7 @@ mod tests {
                 imperfective_negative_form: String::from("使わない"),
                 perfective_form: String::from("使った"),
                 perfective_negative_form: String::from("使わなかった"),
+                formal_imperfective_form: String::from("使います"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -641,6 +744,7 @@ mod tests {
                 imperfective_negative_form: String::from("問わない"),
                 perfective_form: String::from("問うた"),
                 perfective_negative_form: String::from("問わなかった"),
+                formal_imperfective_form: String::from("問います"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -652,6 +756,7 @@ mod tests {
                 imperfective_negative_form: String::from("食べない"),
                 perfective_form: String::from("食べた"),
                 perfective_negative_form: String::from("食べなかった"),
+                formal_imperfective_form: String::from("食べます"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -663,6 +768,7 @@ mod tests {
                 imperfective_negative_form: String::from("痛くない"),
                 perfective_form: String::from("痛かった"),
                 perfective_negative_form: String::from("痛くなかった"),
+                formal_imperfective_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -674,6 +780,7 @@ mod tests {
                 imperfective_negative_form: String::from("よくない"),
                 perfective_form: String::from("よかった"),
                 perfective_negative_form: String::from("よくなかった"),
+                formal_imperfective_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -685,6 +792,7 @@ mod tests {
                 imperfective_negative_form: String::from("よくない"),
                 perfective_form: String::from("よかった"),
                 perfective_negative_form: String::from("よくなかった"),
+                formal_imperfective_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -696,6 +804,7 @@ mod tests {
                 imperfective_negative_form: String::from("良くない"),
                 perfective_form: String::from("良かった"),
                 perfective_negative_form: String::from("良くなかった"),
+                formal_imperfective_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -707,6 +816,7 @@ mod tests {
                 imperfective_negative_form: String::from("簡単じゃない"),
                 perfective_form: String::from("簡単だった"),
                 perfective_negative_form: String::from("簡単じゃなかった"),
+                formal_imperfective_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -718,6 +828,7 @@ mod tests {
                 imperfective_negative_form: String::from("簡単じゃない"),
                 perfective_form: String::from("簡単だった"),
                 perfective_negative_form: String::from("簡単じゃなかった"),
+                formal_imperfective_form: String::from(NOT_APPLICABLE),
             },
         ];
     }
@@ -765,6 +876,18 @@ mod tests {
                 assert_eq!(
                     test_word.word_entity.perfective_negative_form(),
                     test_word.perfective_negative_form,
+                )
+            }
+        })
+    }
+
+    #[bench]
+    fn formal_imperfective_form_test(b: &mut Bencher) {
+        b.iter(|| {
+            for test_word in TEST_WORDS.iter() {
+                assert_eq!(
+                    test_word.word_entity.formal_imperfective_form(),
+                    test_word.formal_imperfective_form,
                 )
             }
         })

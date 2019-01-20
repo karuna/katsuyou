@@ -2,7 +2,9 @@ pub const SURU: &str = "する";
 pub const KURU: &str = "来る";
 pub const KURU_KANA: &str = "くる";
 pub const ARU: &str = "有る";
+pub const ARU_STEM: &str = "有";
 pub const ARU_KANA: &str = "ある";
+pub const ARU_STEM_KANA: &str = "あ";
 // Ending
 pub const GODAN_ARU_SHA_END: &str = "しゃる";
 pub const GODAN_ARU_SA_END: &str = "さる";
@@ -35,6 +37,7 @@ pub const KANAI: &str = "かない";
 pub const GANAI: &str = "がない";
 pub const BANAI: &str = "ばない";
 pub const SARANAI: &str = "さらない";
+pub const SHARANAI: &str = "しゃらない";
 // Past
 pub const SHITA: &str = "した";
 pub const KITA: &str = "きた";
@@ -50,6 +53,19 @@ pub const KATTA: &str = "かった";
 pub const DATTA: &str = "だった";
 pub const ATTA: &str = "あった";
 pub const ATTA_KANJI: &str = "有った";
+// Formal
+pub const SHIMASU: &str = "します";
+pub const KIMASU: &str = "きます";
+pub const MASU: &str = "ます";
+pub const IMASU: &str = "います";
+pub const CHIMASU: &str = "ちます";
+pub const RIMASU: &str = "ります";
+pub const NIMASU: &str = "にます";
+pub const MIMASU: &str = "みます";
+pub const GIMASU: &str = "ぎます";
+pub const BIMASU: &str = "びます";
+pub const SAIMASU: &str = "さいます";
+pub const SHAIMASU: &str = "しゃいます";
 // MISC
 pub const ADJ_II_KANA: &str = "い";
 pub const ADJ_YOI_KANA: &str = "よ";

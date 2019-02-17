@@ -66,6 +66,7 @@ pub const GIMASU: &str = "ぎます";
 pub const BIMASU: &str = "びます";
 pub const SAIMASU: &str = "さいます";
 pub const SHAIMASU: &str = "しゃいます";
+pub const SEN: &str = "せん";
 // MISC
 pub const ADJ_II_KANA: &str = "い";
 pub const ADJ_YOI_KANA: &str = "よ";

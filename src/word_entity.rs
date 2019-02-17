@@ -309,8 +309,15 @@ impl WordEntity {
 
     // masu negative form, long negative form, polite negative form
     pub fn formal_imperfective_negative_form(&self) -> String {
-        // TODO: implement this
-        self.dictionary_form.clone()
+        match self.word_type {
+            WordType::AdjectiveI => String::from(NOT_APPLICABLE),
+            WordType::AdjectiveNa => String::from(NOT_APPLICABLE),
+            _ => [
+                self.formal_imperative_form().trim_end_matches(GODAN_S_END),
+                SEN,
+            ]
+            .join(""),
+        }
     }
 
     // masu past form, long past form, polite past form
@@ -513,6 +520,7 @@ mod tests {
         perfective_form: String,
         perfective_negative_form: String,
         formal_imperfective_form: String,
+        formal_imperfective_negative_form: String,
     }
 
     lazy_static! {
@@ -528,6 +536,7 @@ mod tests {
                 perfective_form: String::from(SHITA),
                 perfective_negative_form: String::from("しなかった"),
                 formal_imperfective_form: String::from(SHIMASU),
+                formal_imperfective_negative_form: String::from("しません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -540,6 +549,7 @@ mod tests {
                 perfective_form: String::from("準備した"),
                 perfective_negative_form: String::from("準備しなかった"),
                 formal_imperfective_form: String::from("準備します"),
+                formal_imperfective_negative_form: String::from("準備しません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -552,6 +562,7 @@ mod tests {
                 perfective_form: String::from(KITA),
                 perfective_negative_form: String::from("こなかった"),
                 formal_imperfective_form: String::from(KIMASU),
+                formal_imperfective_negative_form: String::from("きません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -564,6 +575,7 @@ mod tests {
                 perfective_form: String::from(KITA),
                 perfective_negative_form: String::from("こなかった"),
                 formal_imperfective_form: String::from(KIMASU),
+                formal_imperfective_negative_form: String::from("きません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -576,6 +588,7 @@ mod tests {
                 perfective_form: String::from("下さった"),
                 perfective_negative_form: String::from("下さらなかった"),
                 formal_imperfective_form: String::from("下さいます"),
+                formal_imperfective_negative_form: String::from("下さいません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -588,6 +601,7 @@ mod tests {
                 perfective_form: String::from("いらっしゃった"),
                 perfective_negative_form: String::from("いらっしゃらなかった"),
                 formal_imperfective_form: String::from("いらっしゃいます"),
+                formal_imperfective_negative_form: String::from("いらっしゃいません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -600,6 +614,7 @@ mod tests {
                 perfective_form: String::from("呼んだ"),
                 perfective_negative_form: String::from("呼ばなかった"),
                 formal_imperfective_form: String::from("呼びます"),
+                formal_imperfective_negative_form: String::from("呼びません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -612,6 +627,7 @@ mod tests {
                 perfective_form: String::from("泳いだ"),
                 perfective_negative_form: String::from("泳がなかった"),
                 formal_imperfective_form: String::from("泳ぎます"),
+                formal_imperfective_negative_form: String::from("泳ぎません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -624,6 +640,7 @@ mod tests {
                 perfective_form: String::from("焼いた"),
                 perfective_negative_form: String::from("焼かなかった"),
                 formal_imperfective_form: String::from("焼きます"),
+                formal_imperfective_negative_form: String::from("焼きません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -636,6 +653,7 @@ mod tests {
                 perfective_form: String::from("行った"),
                 perfective_negative_form: String::from("行かなかった"),
                 formal_imperfective_form: String::from("行きます"),
+                formal_imperfective_negative_form: String::from("行きません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -648,6 +666,7 @@ mod tests {
                 perfective_form: String::from("読んだ"),
                 perfective_negative_form: String::from("読まなかった"),
                 formal_imperfective_form: String::from("読みます"),
+                formal_imperfective_negative_form: String::from("読みません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -660,6 +679,7 @@ mod tests {
                 perfective_form: String::from("死んだ"),
                 perfective_negative_form: String::from("死ななかった"),
                 formal_imperfective_form: String::from("死にます"),
+                formal_imperfective_negative_form: String::from("死にません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -672,6 +692,7 @@ mod tests {
                 perfective_form: String::from("走った"),
                 perfective_negative_form: String::from("走らなかった"),
                 formal_imperfective_form: String::from("走ります"),
+                formal_imperfective_negative_form: String::from("走りません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -684,6 +705,7 @@ mod tests {
                 perfective_form: String::from("有った"),
                 perfective_negative_form: String::from("なかった"),
                 formal_imperfective_form: String::from("有ります"),
+                formal_imperfective_negative_form: String::from("有りません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -696,6 +718,7 @@ mod tests {
                 perfective_form: String::from("あった"),
                 perfective_negative_form: String::from("なかった"),
                 formal_imperfective_form: String::from("あります"),
+                formal_imperfective_negative_form: String::from("ありません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -708,6 +731,7 @@ mod tests {
                 perfective_form: String::from("示した"),
                 perfective_negative_form: String::from("示さなかった"),
                 formal_imperfective_form: String::from("示します"),
+                formal_imperfective_negative_form: String::from("示しません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -720,6 +744,7 @@ mod tests {
                 perfective_form: String::from("待った"),
                 perfective_negative_form: String::from("待たなかった"),
                 formal_imperfective_form: String::from("待ちます"),
+                formal_imperfective_negative_form: String::from("待ちません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -732,6 +757,7 @@ mod tests {
                 perfective_form: String::from("使った"),
                 perfective_negative_form: String::from("使わなかった"),
                 formal_imperfective_form: String::from("使います"),
+                formal_imperfective_negative_form: String::from("使いません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -744,6 +770,7 @@ mod tests {
                 perfective_form: String::from("問うた"),
                 perfective_negative_form: String::from("問わなかった"),
                 formal_imperfective_form: String::from("問います"),
+                formal_imperfective_negative_form: String::from("問いません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -756,6 +783,7 @@ mod tests {
                 perfective_form: String::from("食べた"),
                 perfective_negative_form: String::from("食べなかった"),
                 formal_imperfective_form: String::from("食べます"),
+                formal_imperfective_negative_form: String::from("食べません"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -768,6 +796,7 @@ mod tests {
                 perfective_form: String::from("痛かった"),
                 perfective_negative_form: String::from("痛くなかった"),
                 formal_imperfective_form: String::from(NOT_APPLICABLE),
+                formal_imperfective_negative_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -780,6 +809,7 @@ mod tests {
                 perfective_form: String::from("よかった"),
                 perfective_negative_form: String::from("よくなかった"),
                 formal_imperfective_form: String::from(NOT_APPLICABLE),
+                formal_imperfective_negative_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -792,6 +822,7 @@ mod tests {
                 perfective_form: String::from("よかった"),
                 perfective_negative_form: String::from("よくなかった"),
                 formal_imperfective_form: String::from(NOT_APPLICABLE),
+                formal_imperfective_negative_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -804,6 +835,7 @@ mod tests {
                 perfective_form: String::from("良かった"),
                 perfective_negative_form: String::from("良くなかった"),
                 formal_imperfective_form: String::from(NOT_APPLICABLE),
+                formal_imperfective_negative_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -816,6 +848,7 @@ mod tests {
                 perfective_form: String::from("簡単だった"),
                 perfective_negative_form: String::from("簡単じゃなかった"),
                 formal_imperfective_form: String::from(NOT_APPLICABLE),
+                formal_imperfective_negative_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -828,6 +861,7 @@ mod tests {
                 perfective_form: String::from("簡単だった"),
                 perfective_negative_form: String::from("簡単じゃなかった"),
                 formal_imperfective_form: String::from(NOT_APPLICABLE),
+                formal_imperfective_negative_form: String::from(NOT_APPLICABLE),
             },
         ];
     }

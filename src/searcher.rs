@@ -1,9 +1,9 @@
 use super::word_entity::WordEntity;
 
-pub enum Result<'a> {
+pub enum Result {
     None,
-    Single(&'a WordEntity<'a>),
-    Many(&'a [WordEntity<'a>]),
+    Single(WordEntity),
+    Many(Vec<WordEntity>),
 }
 
 pub fn search_word(word: &str) -> Result {

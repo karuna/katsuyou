@@ -1,7 +1,14 @@
+#![feature(test)]
 extern crate clap;
 extern crate console;
 
+#[cfg(test)]
+#[macro_use]
+extern crate lazy_static;
+extern crate test;
+
 mod cli;
+mod constant;
 mod printer;
 mod searcher;
 mod word_entity;
@@ -15,8 +22,8 @@ pub fn run() {
     match search_word(word) {
         Result::None => {
             let sample = WordEntity {
-                dictionary_form: "食べる",
-                translation: "to eat",
+                dictionary_form: String::from("食べる"),
+                translation: String::from("to eat"),
                 word_type: WordType::VerbIchidan,
             };
             printer::print_word(&sample)

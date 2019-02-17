@@ -66,8 +66,25 @@ pub const GIMASU: &str = "ぎます";
 pub const BIMASU: &str = "びます";
 pub const SAIMASU: &str = "さいます";
 pub const SHAIMASU: &str = "しゃいます";
+// Formal Negative
 pub const SEN: &str = "せん";
+// FOrmal Past Negative
 pub const DESHITA: &str = "でした";
+// Potential
+pub const RARERU: &str = "られる";
+pub const DEKIRU: &str = "できる";
+pub const KORARERU: &str = "こられる";
+pub const SARERU: &str = "される";
+pub const SHARERU: &str = "しゃれる";
+pub const BERU: &str = "べる";
+pub const GERU: &str = "げる";
+pub const KERU: &str = "ける";
+pub const MERU: &str = "める";
+pub const NERU: &str = "ねる";
+pub const RERU: &str = "れる";
+pub const SERU: &str = "せる";
+pub const TERU: &str = "てる";
+pub const ERU: &str = "える";
 // MISC
 pub const ADJ_II_KANA: &str = "い";
 pub const ADJ_YOI_KANA: &str = "よ";

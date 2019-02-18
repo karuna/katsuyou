@@ -5,6 +5,7 @@ pub const ARU: &str = "有る";
 pub const ARU_STEM: &str = "有";
 pub const ARU_KANA: &str = "ある";
 pub const ARU_STEM_KANA: &str = "あ";
+pub const I_KANA: &str = "い";
 // Ending
 pub const GODAN_ARU_SHA_END: &str = "しゃる";
 pub const GODAN_ARU_SA_END: &str = "さる";

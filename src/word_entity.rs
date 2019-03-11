@@ -488,8 +488,15 @@ impl WordEntity {
 
     // e past masu form
     pub fn formal_perfective_potential_form(&self) -> String {
-        // TODO: implement this
-        self.dictionary_form.clone()
+        match self.word_type {
+            WordType::AdjectiveI => String::from(NOT_APPLICABLE),
+            WordType::AdjectiveNa => String::from(NOT_APPLICABLE),
+            _ => [
+                self.trim_string(self.formal_potential_form(), GODAN_S_END),
+                String::from(SHITA),
+            ]
+            .join(""),
+        }
     }
 
     // e past masen form
@@ -647,6 +654,7 @@ mod tests {
         informal_perfective_potential_negative_form: String,
         formal_potential_form: String,
         formal_potential_negative_form: String,
+        formal_perfective_potential_form: String,
     }
 
     lazy_static! {
@@ -671,6 +679,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("できなかった"),
                 formal_potential_form: String::from("できます"),
                 formal_potential_negative_form: String::from("できません"),
+                formal_perfective_potential_form: String::from("できました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -694,6 +703,7 @@ mod tests {
                 ),
                 formal_potential_form: String::from("準備できます"),
                 formal_potential_negative_form: String::from("準備できません"),
+                formal_perfective_potential_form: String::from("準備できました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -715,6 +725,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("こられなかった"),
                 formal_potential_form: String::from("こられます"),
                 formal_potential_negative_form: String::from("こられません"),
+                formal_perfective_potential_form: String::from("こられました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -736,6 +747,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("こられなかった"),
                 formal_potential_form: String::from("こられます"),
                 formal_potential_negative_form: String::from("こられません"),
+                formal_perfective_potential_form: String::from("こられました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -757,6 +769,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("下されなかった"),
                 formal_potential_form: String::from("下されます"),
                 formal_potential_negative_form: String::from("下されません"),
+                formal_perfective_potential_form: String::from("下されました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -782,6 +795,7 @@ mod tests {
                 ),
                 formal_potential_form: String::from("いらっしゃれます"),
                 formal_potential_negative_form: String::from("いらっしゃれません"),
+                formal_perfective_potential_form: String::from("いらっしゃれました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -803,6 +817,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("呼べなかった"),
                 formal_potential_form: String::from("呼べます"),
                 formal_potential_negative_form: String::from("呼べません"),
+                formal_perfective_potential_form: String::from("呼べました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -824,6 +839,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("泳げなかった"),
                 formal_potential_form: String::from("泳げます"),
                 formal_potential_negative_form: String::from("泳げません"),
+                formal_perfective_potential_form: String::from("泳げました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -845,6 +861,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("焼けなかった"),
                 formal_potential_form: String::from("焼けます"),
                 formal_potential_negative_form: String::from("焼けません"),
+                formal_perfective_potential_form: String::from("焼けました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -866,6 +883,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("行けなかった"),
                 formal_potential_form: String::from("行けます"),
                 formal_potential_negative_form: String::from("行けません"),
+                formal_perfective_potential_form: String::from("行けました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -887,6 +905,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("読めなかった"),
                 formal_potential_form: String::from("読めます"),
                 formal_potential_negative_form: String::from("読めません"),
+                formal_perfective_potential_form: String::from("読めました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -908,6 +927,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("死ねなかった"),
                 formal_potential_form: String::from("死ねます"),
                 formal_potential_negative_form: String::from("死ねません"),
+                formal_perfective_potential_form: String::from("死ねました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -929,6 +949,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("走れなかった"),
                 formal_potential_form: String::from("走れます"),
                 formal_potential_negative_form: String::from("走れません"),
+                formal_perfective_potential_form: String::from("走れました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -950,6 +971,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("有れなかった"),
                 formal_potential_form: String::from("有れます"),
                 formal_potential_negative_form: String::from("有れません"),
+                formal_perfective_potential_form: String::from("有れました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -971,6 +993,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("あれなかった"),
                 formal_potential_form: String::from("あれます"),
                 formal_potential_negative_form: String::from("あれません"),
+                formal_perfective_potential_form: String::from("あれました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -992,6 +1015,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("示せなかった"),
                 formal_potential_form: String::from("示せます"),
                 formal_potential_negative_form: String::from("示せません"),
+                formal_perfective_potential_form: String::from("示せました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1013,6 +1037,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("待てなかった"),
                 formal_potential_form: String::from("待てます"),
                 formal_potential_negative_form: String::from("待てません"),
+                formal_perfective_potential_form: String::from("待てました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1034,6 +1059,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("使えなかった"),
                 formal_potential_form: String::from("使えます"),
                 formal_potential_negative_form: String::from("使えません"),
+                formal_perfective_potential_form: String::from("使えました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1055,6 +1081,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from("問えなかった"),
                 formal_potential_form: String::from("問えます"),
                 formal_potential_negative_form: String::from("問えません"),
+                formal_perfective_potential_form: String::from("問えました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1078,6 +1105,7 @@ mod tests {
                 ),
                 formal_potential_form: String::from("食べられます"),
                 formal_potential_negative_form: String::from("食べられません"),
+                formal_perfective_potential_form: String::from("食べられました"),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1099,6 +1127,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from(NOT_APPLICABLE),
                 formal_potential_form: String::from(NOT_APPLICABLE),
                 formal_potential_negative_form: String::from(NOT_APPLICABLE),
+                formal_perfective_potential_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1120,6 +1149,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from(NOT_APPLICABLE),
                 formal_potential_form: String::from(NOT_APPLICABLE),
                 formal_potential_negative_form: String::from(NOT_APPLICABLE),
+                formal_perfective_potential_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1141,6 +1171,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from(NOT_APPLICABLE),
                 formal_potential_form: String::from(NOT_APPLICABLE),
                 formal_potential_negative_form: String::from(NOT_APPLICABLE),
+                formal_perfective_potential_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1162,6 +1193,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from(NOT_APPLICABLE),
                 formal_potential_form: String::from(NOT_APPLICABLE),
                 formal_potential_negative_form: String::from(NOT_APPLICABLE),
+                formal_perfective_potential_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1183,6 +1215,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from(NOT_APPLICABLE),
                 formal_potential_form: String::from(NOT_APPLICABLE),
                 formal_potential_negative_form: String::from(NOT_APPLICABLE),
+                formal_perfective_potential_form: String::from(NOT_APPLICABLE),
             },
             TestWordEntity {
                 word_entity: WordEntity {
@@ -1204,6 +1237,7 @@ mod tests {
                 informal_perfective_potential_negative_form: String::from(NOT_APPLICABLE),
                 formal_potential_form: String::from(NOT_APPLICABLE),
                 formal_potential_negative_form: String::from(NOT_APPLICABLE),
+                formal_perfective_potential_form: String::from(NOT_APPLICABLE),
             },
         ];
     }
@@ -1373,6 +1407,18 @@ mod tests {
                 assert_eq!(
                     test_word.word_entity.formal_potential_negative_form(),
                     test_word.formal_potential_negative_form,
+                )
+            }
+        })
+    }
+
+    #[bench]
+    fn formal_perfective_potential_form_test(b: &mut Bencher) {
+        b.iter(|| {
+            for test_word in TEST_WORDS.iter() {
+                assert_eq!(
+                    test_word.word_entity.formal_perfective_potential_form(),
+                    test_word.formal_perfective_potential_form,
                 )
             }
         })
